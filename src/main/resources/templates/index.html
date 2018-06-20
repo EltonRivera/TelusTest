@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Voting Site</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/css/logo-nav.css}" >
+    </head>
+    <body>
+        <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
+        
+         <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/icon.png}" style="height: 2em;">
+                Voting Site
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/home}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/home}">Vote</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="@{/home}">Resume</a>
+            </li>
+              <li class="nav-item">
+                <form th:action="@{/logout}" method="post" style="display: none">
+                      <input id="logout" type="submit" value="Sign Out"/>
+                </form>
+                 <a class="nav-link" href="javascript:$('#logout').click()">Logout</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="container" class="container">
+        
+    </div>
+    
+    
+    
+        <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $( document ).ready(function() {
+            $('#container').load('/home');
+            $('a.menu-option').each(function (index) {
+        var url = $(this).attr('href');
+        $(this).attr('value', url);
+        $(this).attr('href', '#');
+    });
+    $('a.menu-option').click(function () {
+        var title = $(this).text();
+        var url = $(this).attr('value');
+        $("#component-header").find('.title').text(title);
+        $("#component-content").load(url, function () {
+
+        })
+    });
+        });
+    </script>
+    </body>
+</html>
