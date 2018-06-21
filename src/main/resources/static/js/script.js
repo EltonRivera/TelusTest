@@ -1,3 +1,5 @@
+
+function tokenSetUp(){
 (function () {
     $.ajaxSetup({
         beforeSend: function (xhr) {
@@ -9,6 +11,7 @@
         }
     });
 })();
+}
 
 function ajaxMenu() {
     $('a.menu-option').each(function (index) {
@@ -19,7 +22,6 @@ function ajaxMenu() {
     $('a.menu-option').click(function () {
         var title = $(this).text();
         var url = $(this).attr('value');
-//        $("#component-header").find('.title').text(title);
         $("#container").load(url, function () {
 
         });

@@ -5,15 +5,16 @@
  */
 package telus.test.voting.service;
 
-import telus.test.voting.entity.User;
+import java.util.List;
+import telus.test.voting.entity.Department;
 
 /**
  *
  * @author Admin
  */
-public interface UserService {
+public interface DepartmentService {
 
-    void save(User user);
+    List<Department> findByCountryId(Integer id);
 
-    User findByUsername(String username);
+
 }

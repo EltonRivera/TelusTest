@@ -15,8 +15,12 @@
         <div class="container">
             <div class="col-sm-4 offset-sm-4">
                 <form th:action="@{/login}" method="post">
+                    <h2 class="text-info">Voting Site
+                        <img th:src="@{/img/icon.png}" style="height: 2em;" class="float-right">
+                    </h2>
+                    <br/>
                     <div class="form-group">
-                        <label> User Name : </label>
+                        <label> User Name: </label>
                         <input type="text" name="username" class="form-control"/>
                     </div>
                     <div class="form-group">
@@ -25,6 +29,9 @@
                     </div>
 
                     <input type="submit" value="Sign In" class="btn btn-primary text-center" style="width: 100%"/>
+                    <br/>
+                    <br/>
+                    <a th:href="@{/register}">Register account</a>
                 </form>
                 <br>
                     <div th:if="${param.error}">
@@ -48,7 +55,7 @@
 
         <script>
             (function () {
-                $('.alert').fadeOut(2000);
+                $('.alert').fadeOut(4000);
             })();
         </script>
     </body>

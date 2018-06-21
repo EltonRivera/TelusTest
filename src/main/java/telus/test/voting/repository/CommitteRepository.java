@@ -6,14 +6,15 @@
 package telus.test.voting.repository;
 
 import java.io.Serializable;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import telus.test.voting.entity.Country;
+import telus.test.voting.entity.Committee;
 
 /**
  *
  * @author Admin
  */
-public interface CountryRepository extends JpaRepository<Country, Serializable> {
+public interface CommitteRepository extends JpaRepository<Committee, Serializable> {
 
-    public abstract Country findById(Integer id);
+    public abstract List<Committee> findByDepartmentId(Integer id);
 }

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: telus.test.voting.VotingApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.598 s - in telus.test.voting.VotingApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.708 s - in telus.test.voting.VotingApplicationTests

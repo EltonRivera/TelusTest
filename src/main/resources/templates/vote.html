@@ -1,0 +1,32 @@
+<div class="card" style="min-height: 80vh;">
+    <div class="card-header">
+        <h2>Vote</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <p>Select the department and committee, which you will vote</p>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="" class="control-label">Department*</label>
+                    <select name="department" class="form-control" required>
+                        <option th:value="${item.id}" th:text="${item.name}" th:each="item : ${departments}"></option>
+                    </select>
+                    <div class="invalid-feedback">
+                        The department is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="" class="control-label">Committe*</label>
+                    <select name="commite" class="form-control" required>
+                        <option value=""></option>
+                    </select>
+                    <div class="invalid-feedback">
+                        The committe is required
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

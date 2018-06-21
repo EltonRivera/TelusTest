@@ -5,15 +5,15 @@
  */
 package telus.test.voting.service;
 
-import telus.test.voting.entity.User;
+import java.util.List;
+import telus.test.voting.entity.Committee;
+import telus.test.voting.entity.Country;
 
 /**
  *
  * @author Admin
  */
-public interface UserService {
+public interface CommitteService {
 
-    void save(User user);
-
-    User findByUsername(String username);
+    List<Committee> findByDepartmentId(Integer id);
 }
