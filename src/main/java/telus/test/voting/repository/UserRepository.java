@@ -13,8 +13,9 @@ import telus.test.voting.entity.User;
  *
  * @author Admin
  */
-public interface UserRepository extends CrudRepository<User, Serializable>{
-    
+public interface UserRepository extends CrudRepository<User, Serializable> {
+
     public User findByUserAndPassword(String user, String password);
+
     public User findByUser(String user);
 }

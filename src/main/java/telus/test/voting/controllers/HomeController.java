@@ -5,11 +5,16 @@
  */
 package telus.test.voting.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import telus.test.voting.entity.User;
+import telus.test.voting.serviceImpl.UserServiceImpl;
 
 /**
  *
@@ -18,17 +23,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+
+    @Autowired
+    private UserServiceImpl userService;
     
     @GetMapping("")
-    public String index(Model model, @RequestParam(name = "id", required = false) Integer id) {
+    public String index(Model model) {
         return "index";
     }
-    
-    @GetMapping("/home")
-    public String home(Model model, @RequestParam(name = "id", required = false) Integer id) {
-        model.addAttribute("test", "test");
-        return "home";
 
+    @GetMapping("/home")
+    public String home(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String userName = authentication.getName();
+        User user = userService.findByUsername(userName);
+        model.addAttribute("elector", user.getElectorId());
+        return "home";
     }
 
 }

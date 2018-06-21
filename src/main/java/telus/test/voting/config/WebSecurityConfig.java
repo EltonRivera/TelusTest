@@ -5,7 +5,6 @@
  */
 package telus.test.voting.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import telus.test.voting.serviceImpl.UserDetailsServiceImpl;
+
 /**
  *
  * @author Admin
@@ -24,31 +24,32 @@ import telus.test.voting.serviceImpl.UserDetailsServiceImpl;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-    
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
+                .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/imgs/*", "/css/**", "/fonts/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .and()
-            .logout()
+                .logout()
                 .permitAll();
     }
-    
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());

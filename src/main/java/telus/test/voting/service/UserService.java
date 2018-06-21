@@ -12,6 +12,7 @@ import telus.test.voting.entity.User;
  * @author Admin
  */
 public interface UserService {
+
     void save(User user);
 
     User findByUsername(String username);

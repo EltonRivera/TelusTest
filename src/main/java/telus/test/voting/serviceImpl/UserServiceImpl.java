@@ -23,10 +23,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    
+
     @Override
     public void save(User user) {
-        
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     public User findByUser(String username, String password) {
@@ -35,8 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        System.out.println(bCryptPasswordEncoder.encode("12345"));
         return userRepository.findByUser(username);
     }
-    
+
 }

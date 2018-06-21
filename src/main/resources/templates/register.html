@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Voting Site</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+        <link rel="stylesheet" th:href="@{/css/jquery.growl.css}" />
+        <style>
+            .container{
+                margin-top: 5em;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="hidden" name="_csrf"	th:value="${_csrf.token}" />
+        <input type="hidden" name="_csrf_header"	th:value="${_csrf.headerName}" />
+        <form id="registerForm" class="needs-validation" novalidate>
+            <div id="cuenta-section">
+                <br/>
+                <div class="col-sm-4 offset-sm-4">
+                    <div class="page-header">
+                        <h2 class="text-primary"><span class="glyphicon glyphicon-credit-card"></span> Register user</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label">User Name*</label>
+                        <input type="text" class="form-control" name="user" required>
+                            <div class="invalid-feedback">
+                                The user name is required
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label">Name*</label>
+                        <input type="text" class="form-control" name="name" required>
+                            <div class="invalid-feedback">
+                                The name is required
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label">Surnames*</label>
+                        <input type="text" class="form-control" name="surnames" required>
+                            <div class="invalid-feedback">
+                                The surname is required
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="control-label">Email*</label>
+                        <input type="email" class="form-control" name="email" required>
+                            <div class="invalid-feedback">
+                                The email is required
+                            </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="" class="control-label">Id Document*</label>
+                        <input type="text" class="form-control" name="idDocument" required>
+                            <div class="invalid-feedback">
+                                The id document is required
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="control-label">Password*</label>
+                        <input type="password" class="form-control" name="password" required>
+                            <div class="invalid-feedback">
+                                The password is required
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label">Confirm password*</label>
+                        <input type="password" class="form-control" name="password2" required>
+                            <div class="invalid-feedback">
+                                The confirm password is required
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="control-label">Country*</label>
+                        <select name="countryId" class="form-control" required>
+                            <option value=""></option>
+                            <option th:value="${item.id}" th:text="${item.name}" th:each="item : ${countries}"></option>
+                        </select>
+                        <div class="invalid-feedback">
+                            The country is required
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary pull-right" onclick="register()">
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script th:src="@{/js/script.js}" type="text/javascript"></script>
+        <script th:src="@{/js/jquery.growl.js}" type="text/javascript"></script>
+        <script>
+                            function register() {
+                                if ($("#registerForm")[0].checkValidity()) {
+                                    var data = {};
+                                    $("#registerForm").serializeArray().map(function (x) {
+                                        data[x.name] = x.value;
+                                    });
+                                    var url = "/register/save";
+                                    $.post(url, data, function (response) {
+                                        console.log(response);
+                                        if (response.status == 'OK') {
+                                            location.href = "/";
+                                        }
+                                        if (response.status == 'WARNING') {
+                                            message(response.message, 'warning');
+                                        }
+                                        if (response.status == 'ERROR') {
+                                            message(response.message, 'error');
+                                        }
+                                    });
+                                } else {
+                                    $("#registerForm")[0].classList.add('was-validated');
+                                }
+                            }
+                            ;
+        </script>
+
+    </body>
+</html>

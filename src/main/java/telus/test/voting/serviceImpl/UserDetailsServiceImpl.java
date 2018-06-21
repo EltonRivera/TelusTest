@@ -5,7 +5,6 @@
  */
 package telus.test.voting.serviceImpl;
 
-
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,17 +17,18 @@ import telus.test.voting.entity.User;
 import telus.test.voting.repository.UserRepository;
 
 @Service("userDetailsServiceImpl")
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.err.println("test test test");
+
         User user = userRepository.findByUser(username);
 
-       List<GrantedAuthority> authorities = new ArrayList<>();
-        
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
         return new org.springframework.security.core.userdetails.User(user.getUser(), user.getPassword(), authorities);
     }
 }

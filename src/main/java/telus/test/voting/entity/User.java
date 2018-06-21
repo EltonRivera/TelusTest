@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,11 +23,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author elton
+ * @author Admin
  */
 @Entity
 @Table(name = "user")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,24 +39,17 @@ public class User implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 50)
     @Column(name = "user")
     private String user;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "name")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "last_name")
-    private String lastName;
+    @JoinColumn(name = "elector_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Elector electorId;
 
     public User() {
     }
@@ -62,12 +58,10 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String user, String password, String name, String lastName) {
+    public User(Integer id, String user, String password) {
         this.id = id;
         this.user = user;
         this.password = password;
-        this.name = name;
-        this.lastName = lastName;
     }
 
     public Integer getId() {
@@ -94,20 +88,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public Elector getElectorId() {
+        return electorId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setElectorId(Elector electorId) {
+        this.electorId = electorId;
     }
 
     @Override
@@ -132,7 +118,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "witgeeks.test.entity.User[ id=" + id + " ]";
+        return "telus.test.voting.entity.User[ id=" + id + " ]";
     }
-    
+
 }
