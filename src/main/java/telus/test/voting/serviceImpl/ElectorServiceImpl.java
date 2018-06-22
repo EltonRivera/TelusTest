@@ -6,16 +6,9 @@
 package telus.test.voting.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import telus.test.voting.entity.Country;
-import telus.test.voting.entity.User;
-import telus.test.voting.repository.CountryRepository;
-import telus.test.voting.service.UserService;
-import telus.test.voting.repository.UserRepository;
-import telus.test.voting.service.CountryService;
-import java.util.List;
 import telus.test.voting.entity.Elector;
+import telus.test.voting.entity.SummaryVote;
 import telus.test.voting.repository.ElectorRepository;
 import telus.test.voting.service.ElectorService;
 

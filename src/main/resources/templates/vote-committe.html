@@ -1,0 +1,43 @@
+<div class="row pt-5">
+    <input type="hidden" name="_csrf"	th:value="${_csrf.token}" />
+    <input type="hidden" name="_csrf_header"	th:value="${_csrf.headerName}" />
+    <div class="col-sm-4 offset-sm-4">
+        <h4>Committe: <span th:text="${committee.name}"></span></h4>
+        <form id="voteForm">
+            <div class="form-group">
+                <label for="" class="control-label">Vote for a candidate*</label>
+                <select name="idCandidate" class="form-control" required>
+                    <option>Select candidate...</option>
+                    <option th:value="${item.id}" th:text="${item.name}" th:each="item : ${candidates}"></option>
+                </select>
+                <div class="invalid-feedback">
+                    The candidate is required
+                </div>
+                <br>
+                <button type="button" id="buscar" class="btn btn-primary" style="width: 100%" onclick="vote()">Vote</button>
+            </div>
+        </form>
+    </div>  
+</div>
+<script>
+            tokenSetUp();
+            function vote() {
+                if ($("#voteForm")[0].checkValidity()) {
+                    var data = {};
+                    $("#voteForm").serializeArray().map(function (x) {
+                        data[x.name] = x.value;
+                    });
+                    var url = "/vote/vote";
+                    $.post(url, data, function (response) {
+                        if (response.status == 'OK') {
+                            message("Vote applied");
+                        }
+                        if (response.status == 'WARNING') {
+                            message(response.message, 'warning');
+                        }
+                    });
+                } else {
+                    $("#voteForm")[0].classList.add('was-validated');
+                }
+            };
+        </script>

@@ -6,14 +6,16 @@
 package telus.test.voting.service;
 
 import java.util.List;
-import telus.test.voting.entity.Committee;
-import telus.test.voting.entity.Country;
+import telus.test.voting.entity.Candidate;
+import telus.test.voting.entity.SummaryVote;
 
 /**
  *
  * @author Admin
  */
-public interface CommitteService {
+public interface CandidateService {
 
-    List<Committee> findByDepartmentId(Integer id);
+    List<Candidate> findByCommitteeId(Integer id);
+    List<SummaryVote> findElectorVotes(int committee);
+    Candidate findById(Integer id);
 }

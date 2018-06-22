@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telus.test.voting.repository;
+package telus.test.voting.service;
 
-import java.io.Serializable;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
 import telus.test.voting.entity.Committee;
+import telus.test.voting.entity.Country;
 
 /**
  *
  * @author Admin
  */
-public interface CommitteRepository extends JpaRepository<Committee, Serializable> {
+public interface CommitteeService {
 
-    public abstract List<Committee> findByDepartmentId(Integer id);
+    List<Committee> findByDepartmentId(Integer id);
+    Committee findById(Integer id);
 }

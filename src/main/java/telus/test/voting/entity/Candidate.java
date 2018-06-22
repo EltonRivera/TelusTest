@@ -55,7 +55,7 @@ public class Candidate implements Serializable {
     @JoinColumn(name = "committee_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Committee committeeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidate")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidateId")
     private List<Vote> voteList;
 
     public Candidate() {
@@ -136,5 +136,5 @@ public class Candidate implements Serializable {
     public String toString() {
         return "telus.test.voting.entity.Candidate[ id=" + id + " ]";
     }
-
+    
 }

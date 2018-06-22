@@ -122,5 +122,5 @@ public class Committee implements Serializable {
     public String toString() {
         return "telus.test.voting.entity.Committee[ id=" + id + " ]";
     }
-
+    
 }

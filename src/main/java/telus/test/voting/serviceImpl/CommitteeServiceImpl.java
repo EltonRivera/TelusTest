@@ -9,22 +9,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import telus.test.voting.entity.Committee;
-import telus.test.voting.repository.CommitteRepository;
-import telus.test.voting.service.CommitteService;
+import telus.test.voting.repository.CommitteeRepository;
+import telus.test.voting.service.CommitteeService;
 
 /**
  *
  * @author Admin
  */
 @Service
-public class CommitteServiceImpl implements CommitteService {
+public class CommitteeServiceImpl implements CommitteeService {
 
     @Autowired
-    private CommitteRepository committeRepository;
+    private CommitteeRepository committeRepository;
 
     @Override
     public List<Committee> findByDepartmentId(Integer id) {
         return committeRepository.findByDepartmentId(id);
+    }
+
+    @Override
+    public Committee findById(Integer id) {
+        return committeRepository.findById(id);
     }
 
     

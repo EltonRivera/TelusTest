@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -33,42 +35,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Vote implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected VotePK votePK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @JoinColumn(name = "candidate_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "candidate_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Candidate candidate;
-    @JoinColumn(name = "elector_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Candidate candidateId;
+    @JoinColumn(name = "elector_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Elector elector;
+    private Elector electorId;
 
     public Vote() {
     }
 
-    public Vote(VotePK votePK) {
-        this.votePK = votePK;
+    public Vote(Integer id) {
+        this.id = id;
     }
 
-    public Vote(VotePK votePK, Date date) {
-        this.votePK = votePK;
+    public Vote(Integer id, Date date) {
+        this.id = id;
         this.date = date;
     }
 
-    public Vote(int electorId, int candidateId) {
-        this.votePK = new VotePK(electorId, candidateId);
+    public Integer getId() {
+        return id;
     }
 
-    public VotePK getVotePK() {
-        return votePK;
-    }
-
-    public void setVotePK(VotePK votePK) {
-        this.votePK = votePK;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Date getDate() {
@@ -79,26 +80,26 @@ public class Vote implements Serializable {
         this.date = date;
     }
 
-    public Candidate getCandidate() {
-        return candidate;
+    public Candidate getCandidateId() {
+        return candidateId;
     }
 
-    public void setCandidate(Candidate candidate) {
-        this.candidate = candidate;
+    public void setCandidateId(Candidate candidateId) {
+        this.candidateId = candidateId;
     }
 
-    public Elector getElector() {
-        return elector;
+    public Elector getElectorId() {
+        return electorId;
     }
 
-    public void setElector(Elector elector) {
-        this.elector = elector;
+    public void setElectorId(Elector electorId) {
+        this.electorId = electorId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (votePK != null ? votePK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -109,7 +110,7 @@ public class Vote implements Serializable {
             return false;
         }
         Vote other = (Vote) object;
-        if ((this.votePK == null && other.votePK != null) || (this.votePK != null && !this.votePK.equals(other.votePK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -117,7 +118,7 @@ public class Vote implements Serializable {
 
     @Override
     public String toString() {
-        return "telus.test.voting.entity.Vote[ votePK=" + votePK + " ]";
+        return "telus.test.voting.entity.Vote[ id=" + id + " ]";
     }
-
+    
 }

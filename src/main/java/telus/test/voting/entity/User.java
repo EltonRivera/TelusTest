@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "user")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
 public class User implements Serializable {
@@ -120,5 +121,5 @@ public class User implements Serializable {
     public String toString() {
         return "telus.test.voting.entity.User[ id=" + id + " ]";
     }
-
+    
 }

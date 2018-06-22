@@ -122,5 +122,5 @@ public class Department implements Serializable {
     public String toString() {
         return "telus.test.voting.entity.Department[ id=" + id + " ]";
     }
-
+    
 }

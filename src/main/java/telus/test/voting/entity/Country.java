@@ -120,5 +120,5 @@ public class Country implements Serializable {
     public String toString() {
         return "telus.test.voting.entity.Country[ id=" + id + " ]";
     }
-
+    
 }

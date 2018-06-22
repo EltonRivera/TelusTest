@@ -1,0 +1,30 @@
+<table class="table table-bordered table-stripped">
+    <thead>
+        <tr>
+            <th colspan="3">Results of voting for the committee: <span th:text="${committee.name}"></span></th>
+        </tr>
+        <tr>
+            <th>Candidate</th>
+            <th>Votes</th>
+            <th>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item : ${candidates}">
+            <td >
+                <span th:text="${item.name}"></span> <span th:text="${item.surnames}"></span>
+            </td>
+            <td>
+                <span th:text="${item.votes}"></span>
+            </td>
+            <td>
+                <span th:text="${(item.votes/total)*100}"></span>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="3">Total of votes: <span th:text="${total}"></span></th>
+        </tr>
+    </tfoot>
+</table>

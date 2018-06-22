@@ -1,11 +1,10 @@
 <div class="card" style="min-height: 80vh;">
     <div class="card-header">
-        <h2>Vote</h2>
+        <h3>Voting results report</h3>
     </div>
     <div class="card-body">
-        <p>Select the department and committee, which you will vote</p>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="form-group">
                     <label for="" class="control-label">Department*</label>
                     <select id="idDepartment" name="department" class="form-control" required>
@@ -16,8 +15,6 @@
                         The department is required
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="" class="control-label">Committe*</label>
                     <select id="idCommittee" name="commite" class="form-control" required onchange="selectCommittee($(this))">
@@ -29,21 +26,37 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-9">
+                <div id="committeSection">
+                    <table class="table table-bordered table-stripped">
+                        <thead>
+                            <tr>
+                                <th colspan="3">Results of voting for the committee</th>
+                            </tr>
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Votes</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div id="committeSection">
-            
-        </div>
+
     </div>
 </div>
 <script>
-    $('#idDepartment').change(function(){
-        $.get('/vote' + '?idDepartment=' + $(this).val(), function(response){
+    $('#idDepartment').change(function () {
+        $.get('/vote' + '?idDepartment=' + $(this).val(), function (response) {
             $("#idCommittee").html($(response).find("#idCommittee").html());
         });
     });
-    function selectCommittee(select){
-        $("#committeSection").load("/vote/committee?idCommittee=" + select.val(), function(){
-            
+    function selectCommittee(select) {
+        $("#committeSection").load("/report/summary?idCommittee=" + select.val(), function () {
+
         });
     }
 </script>

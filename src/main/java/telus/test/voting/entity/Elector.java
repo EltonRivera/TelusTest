@@ -68,7 +68,7 @@ public class Elector implements Serializable {
     private Country countryId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "electorId")
     private List<User> userList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "elector")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "electorId")
     private List<Vote> voteList;
 
     public Elector() {
@@ -176,5 +176,5 @@ public class Elector implements Serializable {
     public String toString() {
         return "telus.test.voting.entity.Elector[ id=" + id + " ]";
     }
-
+    
 }

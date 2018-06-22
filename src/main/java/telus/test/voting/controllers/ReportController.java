@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import telus.test.voting.entity.Candidate;
 import telus.test.voting.entity.Committee;
+import telus.test.voting.entity.SummaryVote;
 import telus.test.voting.entity.User;
 import telus.test.voting.entity.Vote;
 import telus.test.voting.serviceImpl.CandidateServiceImpl;
@@ -37,8 +38,8 @@ import telus.test.voting.serviceImpl.VoteServiceImpl;
  * @author elton
  */
 @Controller
-@RequestMapping("/vote")
-public class VoteController {
+@RequestMapping("/report")
+public class ReportController {
 
     @Autowired
     private UserServiceImpl userService;
@@ -63,48 +64,24 @@ public class VoteController {
         List<Committee> committees = new ArrayList<>();
         model.addAttribute("departments", departmentService.findByCountryId(user.getElectorId().getCountryId().getId()));
         if(idDepartment.isPresent()){
-            System.out.println("val"+idDepartment.get());
             committees = committeeService.findByDepartmentId(idDepartment.get());
         }
         model.addAttribute("committees", committees);
-        return "vote";
+        return "report";
     }
 
-    @GetMapping("/committee")
-    public String committee(Model model, @RequestParam("idCommittee") Integer idCommittee) {
+    @GetMapping("/summary")
+    public String summary(Model model, @RequestParam("idCommittee") Integer idCommittee) {
         Committee committee = committeeService.findById(idCommittee);
+        int total = 0;
+        List<SummaryVote> list = candidateService.findElectorVotes(idCommittee);
         model.addAttribute("committee", committee);
-        model.addAttribute("candidates", candidateService.findByCommitteeId(idCommittee));
-        return "vote-committe";
-    }
-    
-    @RequestMapping(value = "/vote", method = RequestMethod.POST, produces = "application/json")
-    @ResponseBody
-    public String vote(Model model, @RequestParam("idCandidate") Integer idCandidate) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	String userName = authentication.getName();
-        User user = userService.findByUsername(userName);
-        String status = "OK";
-        String message = "";
-        boolean valid = true;
-        Candidate candidate = candidateService.findById(idCandidate);
-        Optional<Vote> vote = voteService.findVoteByIdElectorAndCommittee(user.getElectorId().getId(), candidate.getCommitteeId().getId());
-        
-        if (vote.isPresent()) {
-            valid = false;
-            message = "You already vote for a candidate in this committee";
-            status = "WARNING";
-        }else{
-            Vote newVote = new Vote();
-            newVote.setCandidateId(candidate);
-            newVote.setElectorId(user.getElectorId());
-            newVote.setDate(new Date());
-            voteService.save(newVote);
+        model.addAttribute("candidates", list);
+        for (SummaryVote reg : list) {
+            total = total + reg.getVotes();
         }
-        JSONObject jsonResponse = new JSONObject();
-        jsonResponse.put("message", message);
-        jsonResponse.put("status", status);
-        return jsonResponse.toJSONString();
+        model.addAttribute("total", total);
+        return "summary";
     }
 
 }

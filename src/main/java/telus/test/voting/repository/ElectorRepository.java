@@ -7,7 +7,6 @@ package telus.test.voting.repository;
 
 import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import telus.test.voting.entity.Country;
 import telus.test.voting.entity.Elector;
 
 /**
