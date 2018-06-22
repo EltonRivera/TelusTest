@@ -1,2 +1,6 @@
 <h1>Welcome <span th:text="${elector.name}"></span> <span th:text="${elector.surnames}"></span></h1>
 <p>In this site you can vote for your favorites candidates. Check the vote section</p>
+
+            <div class="alert alert-info" role="alert">       			
+                Today's Visits <span th:text="${counter}" class="alert-link"></span>
+            </div>

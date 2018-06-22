@@ -22,11 +22,11 @@ public interface CandidateRepository extends JpaRepository<Candidate, Serializab
     @Query("SELECT c FROM Candidate AS c WHERE c.committeeId.id = ?1")
     public abstract List<Candidate> findByCommitteeId(Integer id);
     
-    @Query(value = "SELECT c.name as name, c.surname as surnames, COUNT(DISTINCT c.id) AS votes FROM Candidate c"
+    @Query(value = "SELECT c.name as name, c.surname as surnames, COUNT(DISTINCT v.elector_id) AS votes FROM Candidate c"
             + " INNER JOIN Committee co ON c.committee_id = co.id"
-            + " INNER JOIN Vote v ON v.candidate_id = c.id"
+            + " LEFT JOIN Vote v ON v.candidate_id = c.id"
             + " WHERE co.id = :committee"
-            + " GROUP BY co.id", nativeQuery = true)
+            + " GROUP BY c.id", nativeQuery = true)
   public abstract Object[][] findElectorVotes(@Param("committee") int committee);
     
     public abstract Candidate findById(Integer id);

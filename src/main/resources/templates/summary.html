@@ -18,7 +18,9 @@
                 <span th:text="${item.votes}"></span>
             </td>
             <td>
-                <span th:text="${(item.votes/total)*100}"></span>
+                <div th:if="${total} > 0">
+                    <span th:text="${#numbers.formatDecimal((item.votes/total)*100, 1, 2, 'POINT')}"></span> %
+                </div>
             </td>
         </tr>
     </tbody>

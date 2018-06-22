@@ -7,8 +7,10 @@
             <div class="form-group">
                 <label for="" class="control-label">Vote for a candidate*</label>
                 <select name="idCandidate" class="form-control" required>
-                    <option>Select candidate...</option>
-                    <option th:value="${item.id}" th:text="${item.name}" th:each="item : ${candidates}"></option>
+                    <option value="">Select candidate...</option>
+                    <option th:value="${item.id}"  th:each="item : ${candidates}">
+                        <span th:text="${item.name}" ></span> <span th:text="${item.surname}"></span>
+                    </option>
                 </select>
                 <div class="invalid-feedback">
                     The candidate is required
